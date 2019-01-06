@@ -1,6 +1,6 @@
 const program = require("commander");
-const utils = require("../utils");
 const chalk = require("chalk");
+const utils = require("../util");
 
 utils
   .loadCommands(__dirname, "index.js")

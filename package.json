@@ -1,13 +1,13 @@
 {
-  "name": "ymm-design-cli",
-  "version": "1.0.0",
+  "name": "@biorz/cli",
+  "version": "0.1.9",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "node $NODE_DEBUG_OPTION ./bin/tool.js rename -s",
     "css2pre": "tool css2pre style.css style2.css"
   },
-  "bin": "./bin/tool.js",
+  "bin": "./bin/cli.js",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -20,6 +20,7 @@
     "lodash": "^4.17.10",
     "ora": "^3.0.0",
     "readline": "^1.3.0",
+    "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
     "semver": "^5.6.0",
     "string.prototype.padstart": "^3.0.0",

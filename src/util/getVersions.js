@@ -30,8 +30,10 @@ module.exports = async function getVersions () {
       latest = cached
     }
   } else {
+    getAndCacheLatestVersion()
     latest = local
   }
+
 
   return (sessionCached = {
     current: local,
@@ -40,9 +42,10 @@ module.exports = async function getVersions () {
 }
 
 async function getAndCacheLatestVersion (cached) {
-  const res = await getPackageVersion('design', 'latest') // todo:  
+  const res = await getPackageVersion('@biorz/cli', 'latest')
   if (res.statusCode === 200) {
     const { version } = res.body
+
     if (semver.valid(version) && version !== cached) {
       await fs.writeFile(fsCachePath, version)
       return version
@@ -52,6 +55,8 @@ async function getAndCacheLatestVersion (cached) {
 }
 
 async function getPackageVersion (id, range = '') {
+  const registry = `https://registry.npm.taobao.org`
+
   let result
   try {
     result = await get(`${registry}/${encodeURIComponent(id).replace(/^%40/, '@')}/${range}`)

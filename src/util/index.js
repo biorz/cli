@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const chalk = require("chalk")
+const execa = require('execa')
 const _ = require("lodash");
 
 exports.loadCommands = (dir, exclude) => {
@@ -60,4 +61,12 @@ exports.getFilesByExt = (dir, ext) => {
 
   return rst;
 };
+
+exports.run = (command, args) => {
+  if (!args) {
+    [command, ...args] = command.split(/\s+/);
+  }
+
+  return execa(command, args, { cwd: this.context });
+}
 

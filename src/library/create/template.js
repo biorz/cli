@@ -2,9 +2,9 @@ const fs = require("fs-extra");
 const path = require("path");
 const chalk = require("chalk");
 const inquirer = require("inquirer");
-const loadRemote = require("../../utils/loadRemote");
-const { logWithSpinner, stopSpinner } = require("../../utils/spinner");
-const { log, warn, error } = require("../../utils/logger");
+const loadRemote = require("../../util/loadRemote");
+const { logWithSpinner, stopSpinner } = require("../../util/spinner");
+const { log, warn, error } = require("../../util/logger");
 
 module.exports = function(Creator, argus) {
   class Template extends Creator {
@@ -84,10 +84,11 @@ module.exports = function(Creator, argus) {
       fs.copySync(tmp, this.context);
 
       await this.setProject();
-      logWithSpinner("🚐", "Generating project");
+      logWithSpinner("🚐", "Initialize project");
       await this.initProject();
       stopSpinner();
       console.log('project is created at', chalk.blue(this.context))
+      
     }
   }
 

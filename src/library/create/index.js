@@ -3,8 +3,8 @@ const path = require("path");
 const chalk = require("chalk");
 const inquirer = require("inquirer");
 const creator = require("./creator");
-const { error } = require('../../utils/logger')
-const { clearConsole } = require("../../utils/clearConsole");
+const { error } = require("../../util/logger");
+const { clearConsole } = require("../../util/clearConsole");
 const validateProjectName = require("validate-npm-package-name");
 
 async function create(projectName, options) {
@@ -37,7 +37,7 @@ async function create(projectName, options) {
           {
             name: "ok",
             type: "confirm",
-            message: `G ?`
+            message: `Generate project in current directory?`
           }
         ]);
         if (!ok) {
