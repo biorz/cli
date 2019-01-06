@@ -2,13 +2,13 @@ const program = require('commander')
 const { cleanArgs } = require('../util')
 
 program
-  .command('list <app-name>')
+  .command('list')
   .description('Get a list of published plugins')
   .option('-s, --search', 'Search')
   .option('-r, --registry <url>', 'Use specified npm registry when installing dependencies (only for npm)')
   .option('-x, --proxy', 'Use specified proxy when creating project')
-  .action((name, cmd) => {
+  .action((cmd) => {
     const options = cleanArgs(cmd)
 
-    require('../library/query')(name, options)
+    require('../library/query')(options)
   })

@@ -1,6 +1,7 @@
 const fs = require('fs-extra')
 const path = require('path')
 const semver = require('semver')
+const request = require('./request')
 const fsCachePath = path.resolve(__dirname, '.version')
 
 let sessionCached
@@ -59,22 +60,9 @@ async function getPackageVersion (id, range = '') {
 
   let result
   try {
-    result = await get(`${registry}/${encodeURIComponent(id).replace(/^%40/, '@')}/${range}`)
+    result = await request.get(`${registry}/${encodeURIComponent(id).replace(/^%40/, '@')}/${range}`)
   } catch (e) {
     return e
   }
   return result
 }
-
-async function get (uri) {
-  const request = require('request-promise-native')
-  const reqOpts = {
-    method: 'GET',
-    resolveWithFullResponse: true,
-    json: true,
-    uri
-  }
-
-  return request(reqOpts)
-}
-

@@ -1,7 +1,8 @@
 {
   "name": "@biorz/cli",
   "version": "0.1.9",
-  "description": "",
+  "keywords": ["ymm-design", "ymm-design-cli"],
+  "description": "ymm-design ymm-design-cli",
   "main": "index.js",
   "scripts": {
     "test": "node $NODE_DEBUG_OPTION ./bin/tool.js rename -s",

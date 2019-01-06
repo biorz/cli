@@ -70,3 +70,15 @@ exports.run = (command, args) => {
   return execa(command, args, { cwd: this.context });
 }
 
+exports.getPkgPath = (dir = process.cwd()) => {
+  const files = fs.readdirSync(dir);
+  const pkgPath = files.find(file => file === "package.json");
+
+  if (pkgPath) return path.resolve(pkgPath);
+  
+  const parentDir = path.relative(dir, "..");
+  if (fs.ensureDirSync(parentDir) && times < 3) {
+    return this.getPkgPath(parentDir, ++times);
+  }
+  return null;
+}

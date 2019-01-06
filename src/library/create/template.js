@@ -9,7 +9,6 @@ const { warn, error } = require("../../util/logger");
 module.exports = function(Creator, argus) {
   class Template extends Creator {
     constructor() {
-      console.log(arguments)
       super(...argus);
 
       this.init();

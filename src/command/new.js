@@ -1,8 +1,4 @@
 const program = require('commander')
-const inquirer = require('inquirer')
-const chalk = require('chalk')
-const fs = require('fs')
-const path = require('path')
 const { cleanArgs } = require('../util')
 
 program
