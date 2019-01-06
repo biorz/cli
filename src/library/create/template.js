@@ -4,11 +4,12 @@ const chalk = require("chalk");
 const inquirer = require("inquirer");
 const loadRemote = require("../../util/loadRemote");
 const { logWithSpinner, stopSpinner } = require("../../util/spinner");
-const { log, warn, error } = require("../../util/logger");
+const { warn, error } = require("../../util/logger");
 
 module.exports = function(Creator, argus) {
   class Template extends Creator {
-    constructor(name, context, options) {
+    constructor() {
+      console.log(arguments)
       super(...argus);
 
       this.init();
@@ -34,8 +35,6 @@ module.exports = function(Creator, argus) {
         const preset = await loadRemote(url, true);
         stopSpinner();
         return this.generate(preset);
-        fs.copySync(preset, this.context); // copies file
-        log(`success: ${chalk.cyan(this.context)}:`);
       } catch (e) {
         stopSpinner(false);
         error(`Failed fetching remote ${chalk.cyan(url)}:`);
@@ -57,14 +56,12 @@ module.exports = function(Creator, argus) {
 
     async setProject() {
       const prompts = [];
-      prompts.push(
-        {
-          name: "description",
-          type: "input",
-          message: "Please enter the project description:",
-          default: this.name
-        },
-      );
+      prompts.push({
+        name: "description",
+        type: "input",
+        message: "Please enter the project description:",
+        default: this.name
+      });
       const answers = await inquirer.prompt(prompts);
 
       const pkgPath = path.resolve(this.context, "package");
@@ -76,7 +73,6 @@ module.exports = function(Creator, argus) {
 
         return fs.writeJsonSync(path.resolve(this.context, "package"), pkg);
       }
-
       warn(`package.json not found in ${chalk.yellow(this.context)}`);
     }
 
@@ -87,8 +83,7 @@ module.exports = function(Creator, argus) {
       logWithSpinner("🚐", "Initialize project");
       await this.initProject();
       stopSpinner();
-      console.log('project is created at', chalk.blue(this.context))
-      
+      console.log("project is created at", chalk.blue(this.context));
     }
   }
 
