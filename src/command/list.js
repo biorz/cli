@@ -4,11 +4,10 @@ const { cleanArgs } = require('../util')
 program
   .command('list')
   .description('Get a list of published plugins')
-  .option('-s, --search', 'Search')
-  .option('-r, --registry <url>', 'Use specified npm registry when installing dependencies (only for npm)')
-  .option('-x, --proxy', 'Use specified proxy when creating project')
+  .option('-s, --search', 'Search plugins')
+  .option('-i, --install', 'Select and install plugins')
   .action((cmd) => {
-    const options = cleanArgs(cmd)
-
+    const options = cleanArgs(cmd)  
+    
     require('../library/query')(options)
   })

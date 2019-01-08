@@ -1,14 +1,17 @@
 {
-  "name": "@biorz/cli",
-  "version": "0.1.9",
+  "name": "@ymm-ui/cli",
+  "version": "0.1.1",
   "keywords": ["ymm-design", "ymm-design-cli"],
-  "description": "ymm-design ymm-design-cli",
+  "description": "Command line interface for Ymm Design",
   "main": "index.js",
   "scripts": {
     "test": "node $NODE_DEBUG_OPTION ./bin/tool.js rename -s",
     "css2pre": "tool css2pre style.css style2.css"
   },
-  "bin": "./bin/cli.js",
+  "bin": {
+    "ymm": "bin/index.js",
+    "ymm-ui": "bin/index.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

@@ -3,36 +3,44 @@ const path = require("path");
 const chalk = require("chalk");
 const inquirer = require("inquirer");
 const loadRemote = require("../../util/loadRemote");
-const { logWithSpinner, stopSpinner } = require("../../util/spinner");
-const { warn, error } = require("../../util/logger");
+const {
+  logWithSpinner,
+  stopSpinner
+} = require("../../util/spinner");
+const {
+  warn,
+  error
+} = require("../../util/logger");
 
-module.exports = function(Creator, argus) {
+module.exports = function (Creator, argus) {
   class Template extends Creator {
     constructor() {
       super(...argus);
 
-      this.init();
+      this.download();
     }
 
-    async init() {
+    async download() {
       const list = await this.getList();
       const choices = list.map(it => ({
         name: it.url,
         value: it.url
       }));
 
-      const { url } = await inquirer.prompt([
-        {
-          name: "url",
-          type: "list",
-          message: `Please select a template:`,
-          choices
-        }
-      ]);
+      const {
+        url
+      } = await inquirer.prompt([{
+        name: "url",
+        type: "list",
+        message: `Please select a template:`,
+        choices
+      }]);
+
       try {
         logWithSpinner("📑", "Download git repository");
         const preset = await loadRemote(url, true);
         stopSpinner();
+
         return this.generate(preset);
       } catch (e) {
         stopSpinner(false);
@@ -44,13 +52,11 @@ module.exports = function(Creator, argus) {
     async getList() {
       logWithSpinner("🔍", "Search the template list");
       stopSpinner();
-      return [
-        {
-          url: "biorz/library",
-          author: "biorz",
-          description: "这是一个demo"
-        }
-      ];
+      return [{
+        url: "biorz/template-component",
+        author: "biorz",
+        description: ""
+      }];
     }
 
     async setProject() {
