@@ -75,6 +75,7 @@ module.exports = function (Creator, argus) {
       Object.keys(answers).forEach(it => {
         pkg[it] = answers[it];
       });
+      console.log(pkg, answers)
       return fs.writeJsonSync(path.resolve(this.context, "package"), pkg);
     }
 
