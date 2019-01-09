@@ -79,7 +79,7 @@ module.exports = function (Creator, argus) {
 
         return fs.writeJsonSync(path.resolve(this.context, "package"), pkg);
       }
-      warn(`package.json not found in ${chalk.yellow(this.context)}`);
+      warn(`package.json not found in ${chalk.yellow(pkgPath)}`);
     }
 
     async generate(tmp) {
