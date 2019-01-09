@@ -70,16 +70,12 @@ module.exports = function (Creator, argus) {
       const answers = await inquirer.prompt(prompts);
 
       const pkgPath = path.resolve(this.context, "package.json");
-      console.log(pkgPath, fs.ensureFileSync(pkgPath))
-      if (fs.ensureFileSync(pkgPath)) {
-        const pkg = fs.readJsonSync(pkgPath);
-        Object.keys(answers).forEach(it => {
-          pkg[it] = answers[it];
-        });
-
-        return fs.writeJsonSync(path.resolve(this.context, "package"), pkg);
-      }
-      warn(`package.json not found in ${chalk.yellow(pkgPath)}`);
+      fs.ensureFileSync(pkgPath)
+      const pkg = fs.readJsonSync(pkgPath);
+      Object.keys(answers).forEach(it => {
+        pkg[it] = answers[it];
+      });
+      return fs.writeJsonSync(path.resolve(this.context, "package"), pkg);
     }
 
     async generate(tmp) {
