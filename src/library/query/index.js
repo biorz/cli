@@ -86,7 +86,7 @@ class Query {
     const list = body.filter(it => {
       return it.name.indexOf('@ymm-ui/') === 0
     })
-    return body
+    return list
   }
 }
 

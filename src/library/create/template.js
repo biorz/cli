@@ -69,7 +69,7 @@ module.exports = function (Creator, argus) {
       });
       const answers = await inquirer.prompt(prompts);
 
-      const pkgPath = path.resolve(this.context, "package");
+      const pkgPath = path.resolve(this.context, "package.json");
       console.log(pkgPath)
       if (fs.ensureFileSync(pkgPath)) {
         const pkg = fs.readJsonSync(pkgPath);
