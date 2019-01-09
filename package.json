@@ -1,6 +1,6 @@
 {
   "name": "@ymm-ui/cli",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "keywords": ["ymm-design", "ymm-design-cli"],
   "description": "Command line interface for Ymm Design",
   "main": "index.js",

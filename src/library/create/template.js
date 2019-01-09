@@ -70,6 +70,7 @@ module.exports = function (Creator, argus) {
       const answers = await inquirer.prompt(prompts);
 
       const pkgPath = path.resolve(this.context, "package");
+      console.log(pkgPath)
       if (fs.ensureFileSync(pkgPath)) {
         const pkg = fs.readJsonSync(pkgPath);
         Object.keys(answers).forEach(it => {
