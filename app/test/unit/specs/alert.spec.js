@@ -1,27 +1,16 @@
-import { createTest, createVue, destroyVM } from '../util';
-import Demo from 'packages/Demo';
+import { destroyVM } from '../util';
+import ImageView from 'ymm-design/src';
+import Vue from 'Vue';
 
-describe('Demo', () => {
+describe('ImageView', () => {
   let vm;
+  Vue.use(ImageView);
+
   afterEach(() => {
     destroyVM(vm);
   });
 
-  it('create', () => {
-    vm = createTest(Demo, {
-    }, true);
-    expect(vm.$el.querySelector('.el-alert__title').textContent).to.equal('test');
-    expect(vm.$el.classList.contains('el-alert--info')).to.true;
-  });
-
-  it('close', () => {
-    vm = createVue({
-      template: `
-        <div>
-          <demo></el-alert>
-        </div>
-      `
-    }, true);
-    expect(vm).to.true;
+  it('service', () => {
+    vm = Vue.prototype.$imageview({images: [''], index: 0});
   });
 });

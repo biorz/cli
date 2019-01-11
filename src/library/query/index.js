@@ -52,7 +52,7 @@ class Query {
       return warn("Could not find package.json");
     }
 
-    const pkg = fs.readJsonSync(pkgPath);
+    const pkg = fs.readFileSync(pkgPath);
     const {
       confirm
     } = await inquirer.prompt([{

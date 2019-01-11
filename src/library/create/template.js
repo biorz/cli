@@ -3,6 +3,7 @@ const path = require("path");
 const chalk = require("chalk");
 const inquirer = require("inquirer");
 const loadRemote = require("../../util/loadRemote");
+const { union } = require('lodash')
 const {
   logWithSpinner,
   stopSpinner
@@ -60,22 +61,36 @@ module.exports = function (Creator, argus) {
     }
 
     async setProject() {
-      const prompts = [];
-      prompts.push({
-        name: "description",
-        type: "input",
-        message: "Please enter the project description:",
-        default: this.name
-      });
-      const answers = await inquirer.prompt(prompts);
-
       const pkgPath = path.resolve(this.context, "package.json");
-      fs.ensureFileSync(pkgPath)
-      const pkg = fs.readJsonSync(pkgPath);
-      Object.keys(answers).forEach(it => {
-        pkg[it] = answers[it];
-      });
-      return fs.writeJsonSync(path.resolve(this.context, "package.json"), pkg);
+      try {
+        const pkg = fs.readFileSync(pkgPath, 'utf8')
+      } catch (e) {
+        return warn(`package.json not found in ${chalk.yellow(this.context)}`);
+      }
+
+      const match = pkg.match(/\<=(.*?)\>/g)
+      if(!match) return
+
+      let choice = match.map(it => it.replace(/\<=(.*?)\>/, ($0, $1) => {
+        if($1) return $1.trim()
+      }))
+      choice = union(choice)
+
+      const answers = await inquirer.prompt(
+        choice.map(it => ({
+          name: it,
+          type: "input",
+          message: `Please enter the project ${it}:`,
+          default: this.name
+        }))
+      );
+
+      const gen = pkg.replace(/\<=(.*?)\>/g, ($0, $1) => {
+        $1 = $1 && $1.trim()
+        return answers[$1]
+      })
+
+      return fs.writeFileSync(pkgPath, gen, 'utf8');
     }
 
     async generate(tmp) {

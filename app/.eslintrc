@@ -12,7 +12,8 @@
   "extends": "elemefe",
   "rules": {
     "no-restricted-globals": ["error", "event", "fdescribe"],
-    "radix": 0
+    "radix": 0,
+    "no-trailing-spaces": 0,
   },
   "parserOptions": {
     "ecmaVersion": 2017,

@@ -5,7 +5,7 @@
   "description": "Command line interface for Ymm Design",
   "main": "index.js",
   "scripts": {
-    "test": "node $NODE_DEBUG_OPTION ./bin/tool.js rename -s",
+    "test": "node debug.js",
     "css2pre": "tool css2pre style.css style2.css"
   },
   "bin": {

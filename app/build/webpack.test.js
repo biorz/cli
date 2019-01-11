@@ -24,6 +24,14 @@ const webpackConfig = {
   module: {
     rules: [
       {
+        enforce: 'post',
+        test: /\.jsx?$/,
+        loader: 'istanbul-instrumenter-loader',
+        options: { esModules: true },
+        exclude: config.jsexclude,
+        include: /src|packages/
+      },
+      {
         test: /\.(jsx?|babel|es6)$/,
         include: process.cwd(),
         exclude: config.jsexclude,
@@ -39,6 +47,10 @@ const webpackConfig = {
       {
         test: /\.json$/,
         loader: 'json-loader'
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.css$/,
